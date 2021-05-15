@@ -46,12 +46,12 @@ public class SSH {
     ///   - host: the host to connect to
     ///   - port: the port to connect to; default 22
     /// - Throws: SSHError if the SSH session couldn't be created
-    public init(host: String, port: Int32 = 22) throws {
+    public init(host: String, port: Int32 = 22, timeout: UInt = 5000) throws {
         self.sock = try Socket.create()
         self.session = try Session()
         
         session.blocking = 1
-        try sock.connect(to: host, port: port)
+        try sock.connect(to: host, port: port, timeout: timeout)
         try session.handshake(over: sock)
     }
     
